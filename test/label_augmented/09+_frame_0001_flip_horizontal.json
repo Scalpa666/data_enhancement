@@ -8,22 +8,16 @@
             "fill_color": null,
             "points": [
                 [
-                    7.0,
+                    2343.0,
                     7.5
                 ],
                 [
-                    1497.0,
+                    3833.0,
                     1602.5
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                2343.0,
-                7.5,
-                3833.0,
-                1602.5
-            ]
+            "flags": {}
         },
         {
             "label": "healthy",
@@ -31,22 +25,16 @@
             "fill_color": null,
             "points": [
                 [
-                    1309.5,
+                    925.5,
                     10.0
                 ],
                 [
-                    2914.5,
+                    2530.5,
                     1177.5
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                925.5,
-                10.0,
-                2530.5,
-                1177.5
-            ]
+            "flags": {}
         },
         {
             "label": "old",
@@ -54,22 +42,16 @@
             "fill_color": null,
             "points": [
                 [
-                    3237.0,
+                    1,
                     220.0
                 ],
                 [
-                    3839,
+                    603.0,
                     1108
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                1,
-                220.0,
-                603.0,
-                1108
-            ]
+            "flags": {}
         },
         {
             "label": "slight",
@@ -77,22 +59,16 @@
             "fill_color": null,
             "points": [
                 [
-                    2339.5,
+                    1,
                     875.0
                 ],
                 [
-                    3839,
+                    1500.5,
                     2155
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                1,
-                875.0,
-                1500.5,
-                2155
-            ]
+            "flags": {}
         },
         {
             "label": "old",
@@ -100,22 +76,16 @@
             "fill_color": null,
             "points": [
                 [
-                    979.5,
+                    1278.0,
                     955.0
                 ],
                 [
-                    2562.0,
+                    2860.5,
                     2152.5
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                1278.0,
-                955.0,
-                2860.5,
-                2152.5
-            ]
+            "flags": {}
         },
         {
             "label": "healthy",
@@ -123,22 +93,16 @@
             "fill_color": null,
             "points": [
                 [
-                    7.0,
+                    2657,
                     1320.0
                 ],
                 [
-                    1183,
+                    3833.0,
                     2159
                 ]
             ],
             "shape_type": "rectangle",
-            "flags": {},
-            "bbox": [
-                2657,
-                1320.0,
-                3833.0,
-                2159
-            ]
+            "flags": {}
         }
     ],
     "lineColor": [
