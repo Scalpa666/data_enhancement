@@ -3,7 +3,12 @@ import json
 from PIL import Image
 import math
 
-
+class_mapping = {
+    'slight': 0,
+    'serious': 1,
+    'healthy': 2,
+    'old': 3
+}
 def rotate_image_and_boxes(image_path, label_path, angle, output_image_dir, output_label_dir):
     """
     旋转图像并更新标签中的边界框
@@ -88,36 +93,49 @@ def flip_image_and_boxes(image_path, label_path, direction, output_image_dir, ou
     else:
         raise ValueError("Invalid flip direction. Use 'horizontal' or 'vertical'.")
 
-    # 更新标签中的边界框
-    for annotation in label_data['shapes']:
-        xmin, ymin = annotation['points'][0]
-        xmax, ymax = annotation['points'][1]
-        width, height = image.size
-        if direction == 'horizontal':
-            # 水平翻转：xmin和xmax变为宽度-原值
-            new_xmin = width - xmax
-            new_xmax = width - xmin
-            new_ymin = ymin
-            new_ymax = ymax
-        elif direction == 'vertical':
-            # 垂直翻转：ymin和ymax变为高度-原值
-            new_xmin = xmin
-            new_xmax = xmax
-            new_ymin = height - ymax
-            new_ymax = height - ymin
-        else:
-            new_xmin, new_ymin, new_xmax, new_ymax = xmin, ymin, xmax, ymax
-        annotation['points'] = [[new_xmin, new_ymin], [new_xmax, new_ymax]]
 
-    # 保存翻转后的图像和标签
+    # 保存翻转后的图像
     output_image_path = os.path.join(output_image_dir,
                                      os.path.basename(image_path).replace('.jpg', f'_flip_{direction}.jpg'))
     flipped_image.save(output_image_path)
-    output_label_path = os.path.join(output_label_dir,
-                                     os.path.basename(label_path).replace('.json', f'_flip_{direction}.json'))
-    with open(output_label_path, 'w') as f:
-        json.dump(label_data, f, indent=4)
 
+    # 保存标签为 txt 文件
+    output_label_path = os.path.join(output_label_dir,
+                                     os.path.basename(label_path).replace('.json', f'_flip_{direction}.txt'))
+    with open(output_label_path, 'w') as f:
+        # 写入每个边界框信息
+        for annotation in label_data['shapes']:
+            class_name = annotation['label']
+            if class_name not in class_mapping:
+                print(f"Warning: Unknown class {class_name}")
+                continue
+            class_id = class_mapping[class_name]
+            xmin, ymin = annotation['points'][0]
+            xmax, ymax = annotation['points'][1]
+            width, height = image.size
+            if direction == 'horizontal':
+                new_xmin = width - xmax
+                new_xmax = width - xmin
+                new_ymin = ymin
+                new_ymax = ymax
+            elif direction == 'vertical':
+                new_xmin = xmin
+                new_xmax = xmax
+                new_ymin = height - ymax
+                new_ymax = height - ymin
+
+            x_center = (new_xmin + new_xmax) / 2.0 / width
+            y_center = (new_ymin + new_ymax) / 2.0 / height
+            bbox_width = (new_xmax - new_xmin) / width
+            bbox_height = (new_ymax - new_ymin) / height
+
+            # 格式化变量
+            x_center = "{:.6f}".format(x_center)
+            y_center = "{:.6f}".format(y_center)
+            bbox_width = "{:.6f}".format(bbox_width)
+            bbox_height = "{:.6f}".format(bbox_height)
+
+            f.write(f"{class_id} {x_center} {y_center} {bbox_width} {bbox_height}\n")
 
 def generate_augmented_dataset(image_dir, label_dir, output_image_dir, output_label_dir):
     """
