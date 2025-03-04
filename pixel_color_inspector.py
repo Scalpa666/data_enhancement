@@ -21,7 +21,7 @@ def get_pixel_info(event, x, y, flags, param):
 
 if __name__ == "__main__":
     # 读取图像（替换为你的图像路径）
-    image_path = "data/09_frame_0001.jpg"
+    image_path = "data/image2_rr_y/20250304180723.jpg"
     image = cv2.imread(image_path)
 
     if image is None:
